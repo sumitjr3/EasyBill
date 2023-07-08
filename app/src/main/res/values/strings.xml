@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Bill_Me</string>
+    <string name="title_activity_profile_menu">profileMenu</string>
+    <string name="name"></string>
+    <string name="address"></string>
+    <string name="ownerName"></string>
+    <string name="phoneNumber"></string>
+</resources>
