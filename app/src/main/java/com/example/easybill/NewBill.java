@@ -3,6 +3,7 @@ package com.example.easybill;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -23,7 +24,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NewBill extends AppCompatActivity {
 
@@ -95,8 +98,12 @@ public class NewBill extends AppCompatActivity {
         // Get the directory where you want to save the PDF file
         File directory = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
-        // Create a file object with the desired file name
-        String fileName = "bill.pdf";
+        // Create a unique file name with timestamp
+        String timeStamp = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        }
+        String fileName = "bill_" + timeStamp + ".pdf";
         File file = new File(directory, fileName);
 
         // Get the absolute file path
@@ -130,7 +137,7 @@ public class NewBill extends AppCompatActivity {
             table.addCell("Price");
             table.addCell("Total");
 
-            float x = 0;
+
             float grandTotal = 0;
 
             // Iterate over the ListView items
@@ -147,8 +154,7 @@ public class NewBill extends AppCompatActivity {
                 // Parse the cleaned string as a float
                 float tt = Float.parseFloat(cleanTotalItem);
 
-                grandTotal = tt + x;
-                x = grandTotal;
+                grandTotal += tt;
 
                 // Add the item details to the table
                 table.addCell(nameItem);
