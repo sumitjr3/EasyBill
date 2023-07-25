@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 public class TotalItems extends AppCompatActivity {
 
+    private AlertDialog dialog;
     private ListView listView;
     private SimpleCursorAdapter adapter;
     private MyDataBaseHelper myDataBaseHelper;
@@ -67,42 +69,62 @@ public class TotalItems extends AppCompatActivity {
 
                 builder.setPositiveButton("OK", null);
 
-                AlertDialog dialog = builder.create();
+                dialog = builder.create();
                 dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface dialogInterface) {
+
+
+                        if (isFinishing()) {
+                            return;
+                        }
+
+
                         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+
                         positiveButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 String quantity = quantityInput.getText().toString();
                                 String discount = discountInput.getText().toString();
 
-                                // Create an intent to pass the selected item, price, and quantity back to the NewBill activity
-                                Intent intent = new Intent();
+                                // Input validation for quantity and discount
+                                if (TextUtils.isEmpty(quantity) || TextUtils.isEmpty(discount)) {
+                                    Toast.makeText(TotalItems.this, "Please enter valid quantity and discount", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
 
-                                int pp = Integer.parseInt(selectedPrice);
-                                int pq = Integer.parseInt(quantity);
-                                int d = Integer.parseInt(discount);
+                                try {
+                                    int pq = Integer.parseInt(quantity);
+                                    int d = Integer.parseInt(discount);
 
-                                //calculating price after discount applied
-                                float priceNow = pp - ((d * pp) / 100);
+                                    int pp = Integer.parseInt(selectedPrice);
 
-                                /* just converting String values into a integer value for
-                                 calculation and then converting it back to String value */
-                                String total = String.valueOf(priceNow * pq);
-                                String price = String.valueOf(priceNow);
+                                    // calculating price after discount applied
+                                    float priceNow = pp - ((d * pp) / 100);
 
+                                    // just converting int values into a String value for calculation and display
+                                    String total = String.valueOf(priceNow * pq);
+                                    String price = String.valueOf(priceNow);
 
-                                intent.putExtra("selectedItem", selectedItem);
-                                intent.putExtra("selectedPrice", price);
-                                intent.putExtra("selectedQuantity", quantity);
-                                intent.putExtra("selectedTotal", total);
+                                    // Create an intent to pass the selected item, price, and quantity back to the NewBill activity
+                                    Intent intent = new Intent();
+                                    intent.putExtra("selectedItem", selectedItem);
+                                    intent.putExtra("selectedPrice", price);
+                                    intent.putExtra("selectedQuantity", quantity);
+                                    intent.putExtra("selectedTotal", total);
 
-                                setResult(RESULT_OK, intent);
-                                finish();
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(TotalItems.this, "Please enter valid quantity and discount", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
+
+
                     }
                 });
 
@@ -124,6 +146,14 @@ public class TotalItems extends AppCompatActivity {
 
     }//on create
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
 
 
     private void showDeleteConfirmationDialog(final long id) {

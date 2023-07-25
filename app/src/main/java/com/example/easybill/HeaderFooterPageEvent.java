@@ -20,9 +20,8 @@ import java.io.IOException;
 import java.util.Date;
 
 class HeaderFooterPageEvent extends PdfPageEventHelper {
-    public void onStartPage(PdfWriter writer, Document document, Context context) {
+    public void onStartPage(PdfWriter writer, Document document) {
         PdfContentByte cb = writer.getDirectContent();
-
 
         // Add header content (company name, address, phone number, and date)
         cb.saveState();
@@ -30,36 +29,33 @@ class HeaderFooterPageEvent extends PdfPageEventHelper {
 
         // Set font and size for company name
         try {
-            cb.setFontAndSize(BaseFont.createFont(), 16);
-        } catch (DocumentException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
+            cb.setFontAndSize(baseFont, 16);
+        } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
+
         cb.setTextMatrix(document.left(), document.top() - 30); // Adjust vertical position as needed
-        cb.showText(String.valueOf(R.string.name)); // Replace "Your Company Name" with the actual company name
+        cb.showText("Your Company Name"); // Replace with the actual company name
 
         // Set font and size for address
         try {
-            cb.setFontAndSize(BaseFont.createFont(), 12);
-        } catch (DocumentException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
+            cb.setFontAndSize(baseFont, 12);
+        } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
         cb.setTextMatrix(document.left(), document.top() - 50); // Adjust vertical position as needed
-        cb.showText(String.valueOf(R.string.address)); // Replace "Your Company Address" with the actual address
+        cb.showText("Your Company Address"); // Replace with the actual address
 
         // Set font and size for phone number and date
         try {
-            cb.setFontAndSize(BaseFont.createFont(), 10);
-        } catch (DocumentException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
+            cb.setFontAndSize(baseFont, 10);
+        } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
-        cb.setTextMatrix(document.left(), document.top() - 70); // Adjust vertical position as needed
-        cb.showText(String.valueOf(R.string.phoneNumber)); // Replace with the actual phone number
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             cb.showTextAligned(Element.ALIGN_RIGHT, "Date: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()), document.right(), document.top() - 70, 0);
         }
@@ -67,6 +63,7 @@ class HeaderFooterPageEvent extends PdfPageEventHelper {
         cb.endText();
         cb.restoreState();
     }
+
 
 
     public void onEndPage(PdfWriter writer, Document document) {
