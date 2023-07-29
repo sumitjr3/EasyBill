@@ -1,6 +1,5 @@
 package com.example.easybill;
 
-
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
@@ -15,13 +14,26 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
-
+import com.itextpdf.text.pdf.PdfLine;
 import java.io.IOException;
 import java.util.Date;
 
 class HeaderFooterPageEvent extends PdfPageEventHelper {
+
+    private float headerHeight;
+    private float footerHeight;
+
+    public HeaderFooterPageEvent() {
+        headerHeight = 20;
+        footerHeight = 20;
+    }
+
+
     public void onStartPage(PdfWriter writer, Document document) {
         PdfContentByte cb = writer.getDirectContent();
+
+        // Set the header and footer margins
+        document.setMargins(headerHeight, 36, footerHeight, 36);
 
         // Add header content (company name, address, phone number, and date)
         cb.saveState();
@@ -35,7 +47,7 @@ class HeaderFooterPageEvent extends PdfPageEventHelper {
             throw new RuntimeException(e);
         }
 
-        cb.setTextMatrix(document.left(), document.top() - 30); // Adjust vertical position as needed
+        cb.setTextMatrix(document.left(), document.top() -10); // Adjust vertical position as needed
         cb.showText("Your Company Name"); // Replace with the actual company name
 
         // Set font and size for address
@@ -45,7 +57,7 @@ class HeaderFooterPageEvent extends PdfPageEventHelper {
         } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
-        cb.setTextMatrix(document.left(), document.top() - 50); // Adjust vertical position as needed
+        cb.setTextMatrix(document.left(), document.top() -30); // Adjust vertical position as needed
         cb.showText("Your Company Address"); // Replace with the actual address
 
         // Set font and size for phone number and date
@@ -57,7 +69,7 @@ class HeaderFooterPageEvent extends PdfPageEventHelper {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            cb.showTextAligned(Element.ALIGN_RIGHT, "Date: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()), document.right(), document.top() - 70, 0);
+            cb.showTextAligned(Element.ALIGN_RIGHT, "Date: " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()), document.right(), document.top() - 20, 0);
         }
 
         cb.endText();
@@ -101,3 +113,4 @@ class HeaderFooterPageEvent extends PdfPageEventHelper {
 
 
 }
+

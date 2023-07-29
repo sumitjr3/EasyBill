@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -111,6 +112,7 @@ public class NewBill extends AppCompatActivity {
 
         // Initialize the PDF document
         Document document = new Document();
+        document.setMargins(20,20,50,50);
 
 
         try {
@@ -118,14 +120,19 @@ public class NewBill extends AppCompatActivity {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 
 
-            HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-            writer.setPageEvent(event);
+
+            String name = String.valueOf(R.string.name);
+            String address = String.valueOf(R.string.address);
 
             // Open the document
             document.open();
+            document.addTitle("Bill");
+            document.addHeader(name,address);
+
 
             // Create a table for the bill items
             PdfPTable table = new PdfPTable(4); // 4 columns for item name, quantity, price, and total
+
 
 
             float[] columnWidths = {3f, 1f, 1f, 1f}; // Adjust the values as per your requirements
@@ -139,6 +146,7 @@ public class NewBill extends AppCompatActivity {
 
 
             float grandTotal = 0;
+
 
             // Iterate over the ListView items
             for (int i = 0; i < selectedItemsList.size(); i++) {
@@ -163,6 +171,9 @@ public class NewBill extends AppCompatActivity {
                 table.addCell(totalItem);
             }
 
+
+
+
             PdfPCell cell1 = new PdfPCell(new Phrase(""));
             PdfPCell cell2 = new PdfPCell(new Phrase(""));
             PdfPCell cell3 = new PdfPCell(new Phrase("Total: "));
@@ -173,7 +184,6 @@ public class NewBill extends AppCompatActivity {
             table.addCell(cell3);
             table.addCell(cell4);
 
-            // Add the table to the document
             document.add(table);
 
             // Close the document
