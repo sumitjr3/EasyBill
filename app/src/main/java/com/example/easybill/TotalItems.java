@@ -55,7 +55,6 @@ public class TotalItems extends AppCompatActivity {
 
                 // Create an AlertDialog to prompt for the quantity
                 AlertDialog.Builder builder = new AlertDialog.Builder(TotalItems.this);
-                builder.setTitle("Quantity and Discount");
 
                 View dialogView = getLayoutInflater().inflate(R.layout.alert_dialog, null);
                 builder.setView(dialogView);
