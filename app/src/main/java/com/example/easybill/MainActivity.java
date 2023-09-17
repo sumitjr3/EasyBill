@@ -2,10 +2,13 @@ package com.example.easybill;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +16,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,15 +73,11 @@ public class MainActivity extends AppCompatActivity {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent prevIntent = new Intent(MainActivity.this,TotalItems.class);
+                Intent prevIntent = new Intent(MainActivity.this,PrevBill.class);
                 startActivity(prevIntent);
             }
         });
 
 
-
-
     }
-
-
 }

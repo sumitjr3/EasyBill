@@ -3,6 +3,7 @@ package com.example.easybill;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -47,7 +48,8 @@ public class AddItems extends AppCompatActivity {
                     nameInput.setText("");
                     priceInput.setText("");
                 }
-
+                Intent intent = new Intent(AddItems.this, TotalItems.class);
+                startActivity(intent);
             }
         });
 

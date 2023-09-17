@@ -20,8 +20,8 @@ import java.util.Date;
 
 class HeaderFooterPageEvent extends PdfPageEventHelper {
 
-    private float headerHeight;
-    private float footerHeight;
+    private final float headerHeight;
+    private final float footerHeight;
 
     public HeaderFooterPageEvent() {
         headerHeight = 20;

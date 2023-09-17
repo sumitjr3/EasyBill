@@ -2,8 +2,12 @@ package com.example.easybill;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -33,6 +37,7 @@ public class NewBill extends AppCompatActivity {
 
     Button AddItemButton, GenerateBillButton;
     ListView NewBillList;
+    private File pdfFile;
     private List<String> selectedItemsList;
     private List<String> selectedItemsQuantity;
     private List<String> selectedItemsPrices;
@@ -105,10 +110,10 @@ public class NewBill extends AppCompatActivity {
             timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         }
         String fileName = "bill_" + timeStamp + ".pdf";
-        File file = new File(directory, fileName);
+        pdfFile = new File(directory, fileName);
 
         // Get the absolute file path
-        String filePath = file.getAbsolutePath();
+        String filePath = pdfFile.getAbsolutePath();
 
         // Initialize the PDF document
         Document document = new Document();
@@ -119,8 +124,6 @@ public class NewBill extends AppCompatActivity {
             // Create a PdfWriter to write the document to a file
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 
-
-
             String name = String.valueOf(R.string.name);
             String address = String.valueOf(R.string.address);
 
@@ -129,12 +132,8 @@ public class NewBill extends AppCompatActivity {
             document.addTitle("Bill");
             document.addHeader(name,address);
 
-
             // Create a table for the bill items
             PdfPTable table = new PdfPTable(4); // 4 columns for item name, quantity, price, and total
-
-
-
             float[] columnWidths = {3f, 1f, 1f, 1f}; // Adjust the values as per your requirements
             table.setWidths(columnWidths);
 
@@ -154,25 +153,19 @@ public class NewBill extends AppCompatActivity {
                 String quantityItem = selectedItemsQuantity.get(i);
                 String priceItem = selectedItemsPrices.get(i);
                 String totalItem = selectedItemsTotal.get(i);
-
                 // Calculating Grand total logic
                 // Remove non-numeric characters from the totalItem string
                 String cleanTotalItem = totalItem.replaceAll("[^0-9.]", "");
-
                 // Parse the cleaned string as a float
                 float tt = Float.parseFloat(cleanTotalItem);
 
                 grandTotal += tt;
-
                 // Add the item details to the table
                 table.addCell(nameItem);
                 table.addCell(quantityItem);
                 table.addCell(priceItem);
                 table.addCell(totalItem);
             }
-
-
-
 
             PdfPCell cell1 = new PdfPCell(new Phrase(""));
             PdfPCell cell2 = new PdfPCell(new Phrase(""));
@@ -185,12 +178,12 @@ public class NewBill extends AppCompatActivity {
             table.addCell(cell4);
 
             document.add(table);
-
             // Close the document
             document.close();
-
             // Show a success message or perform further actions
             Toast.makeText(this, "PDF bill created successfully", Toast.LENGTH_SHORT).show();
+
+
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("PDF Creation", "Error creating PDF: " + e.getMessage(), e);
