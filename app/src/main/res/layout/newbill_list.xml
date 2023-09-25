@@ -5,14 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape">
     <TextView
         android:id="@+id/itemName"
         android:layout_width="219dp"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:padding="10dp"
-        android:background="@drawable/shape"
         android:gravity="center_vertical"
         android:textColor="#2e2d2f" />
 
@@ -22,7 +24,6 @@
         android:layout_height="50dp"
         android:padding="5dp"
         android:layout_toEndOf="@+id/itemName"
-        android:background="@drawable/shape"
         android:textColor="#2e2d2f"
         android:gravity="center_vertical"/>
 
@@ -31,7 +32,6 @@
         android:layout_width="53dp"
         android:layout_height="50dp"
         android:padding="5dp"
-        android:background="@drawable/shape"
         android:textColor="#2e2d2f"
         android:layout_toEndOf="@+id/itemQuantity"
         android:gravity="center_vertical"/>
@@ -41,11 +41,10 @@
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:padding="5dp"
-        android:background="@drawable/shape"
         android:textColor="#2e2d2f"
         android:layout_toEndOf="@+id/itemPrice"
         android:gravity="center_vertical"
         android:layout_marginEnd="5dp"/>
 
-
+</androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

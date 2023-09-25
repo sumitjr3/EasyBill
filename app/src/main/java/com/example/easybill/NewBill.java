@@ -2,12 +2,13 @@ package com.example.easybill;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
-import android.content.ActivityNotFoundException;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.content.Intent;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.icu.text.SimpleDateFormat;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -20,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -35,6 +35,7 @@ import java.util.Locale;
 
 public class NewBill extends AppCompatActivity {
 
+    private static final int REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION = 1;
     Button AddItemButton, GenerateBillButton;
     ListView NewBillList;
     private File pdfFile;
@@ -102,11 +103,11 @@ public class NewBill extends AppCompatActivity {
 
     private void createPDF() {
         // Get the directory where you want to save the PDF file
-        File directory = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
         // Create a unique file name with timestamp
         String timeStamp = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         }
         String fileName = "bill_" + timeStamp + ".pdf";
@@ -180,8 +181,11 @@ public class NewBill extends AppCompatActivity {
             document.add(table);
             // Close the document
             document.close();
-            // Show a success message or perform further actions
-            Toast.makeText(this, "PDF bill created successfully", Toast.LENGTH_SHORT).show();
+
+            // Notify the user that the PDF is ready for download
+            Toast.makeText(this, "PDF bill created. You can download it now.", Toast.LENGTH_SHORT).show();
+
+
 
 
         } catch (Exception e) {
@@ -212,4 +216,12 @@ public class NewBill extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
+
+    private void requestWriteExternalStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION);
+        }
+    }
+
+
 }

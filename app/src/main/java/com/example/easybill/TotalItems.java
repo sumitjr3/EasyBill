@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -97,7 +98,7 @@ public class TotalItems extends AppCompatActivity {
                                     int pq = Integer.parseInt(quantity);
                                     int d = Integer.parseInt(discount);
 
-                                    int pp = Integer.parseInt(selectedPrice);
+                                    float pp = Integer.parseInt(selectedPrice);
 
                                     // calculating price after discount applied
                                     float priceNow = pp - ((d * pp) / 100);
@@ -122,8 +123,6 @@ public class TotalItems extends AppCompatActivity {
                                 }
                             }
                         });
-
-
                     }
                 });
 
