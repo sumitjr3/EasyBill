@@ -16,12 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyBill"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".ActivityHow"
+            android:exported="false" />
         <activity
             android:name=".usersInfo"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,9 +51,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>

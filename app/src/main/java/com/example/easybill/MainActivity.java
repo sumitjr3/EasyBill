@@ -14,11 +14,14 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
     Button addButton, totalButton, newButton, prevButton;
+    FloatingActionButton fab;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         totalButton = findViewById(R.id.button2);
         newButton = findViewById(R.id.button3);
         prevButton = findViewById(R.id.button4);
+        fab = findViewById(R.id.fab);
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -80,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
                     // Handle the case where no PDF viewer app is installed on the device.
                 }
 
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent FloatingIntent = new Intent(MainActivity.this,ActivityHow.class);
+                startActivity(FloatingIntent);
             }
         });
 
