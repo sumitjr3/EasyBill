@@ -6,121 +6,92 @@
     android:layout_height="match_parent"
     tools:context=".NewBill"
     android:background="#ffff"
-    android:backgroundTint="#c9ffe5">
+    android:backgroundTint="#181818">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:background="@drawable/dark_shape"
-        android:paddingBottom="10dp"
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingBottom="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="219dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
             android:layout_marginBottom="1dp"
             android:gravity="center"
-            android:text="item name"
+            android:text="    Item Name                       Quantity      Rate      Total"
+            android:textColor="@color/mywhite"
+            android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="53dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="1dp"
-            android:gravity="center"
-            android:text="Quantity"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="53dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="1dp"
-            android:gravity="center"
-            android:text="price"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="70dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="1dp"
-            android:gravity="center"
-            android:text="net amount"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <Button
-        android:id="@+id/addInBillButton"
-        android:layout_width="180dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="#00827f"
-        android:drawableLeft="@drawable/add"
-        android:text="Add Item"
-        android:textColor="#ffff"
-        android:textColorHint="#ffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/generateBillButton"
-        android:layout_width="180dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="#00827f"
-        android:drawableLeft="@drawable/mybills"
-        android:text="Generate Bill"
-        android:textColor="#ffff"
-        android:textColorHint="#ffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addInBillButton" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="580dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/addInBillButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
 
         <ListView
             android:id="@+id/listViewNewBill"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#c9ffe5"
-            android:dividerHeight="5dp"
+            android:divider="#181818"
+            android:dividerHeight="3dp"
             tools:listitem="@layout/newbill_list" />
 
     </LinearLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addInBillButton"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="#484848"
+            android:drawableLeft="@drawable/add"
+            android:text="Add Item"
+            android:textColor="#ffff"
+            android:textColorHint="#ffff"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/generateBillButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/generateBillButton"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#484848"
+            android:drawableLeft="@drawable/mybills"
+            android:text="Generate Bill"
+            android:textColor="#ffff"
+            android:textColorHint="#ffff"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addInBillButton"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PrevBill"
-    android:background="#ffff"
-    android:backgroundTint="#c9ffe5">
+    android:background="@color/mywhite"
+    android:backgroundTint="@color/myblack">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

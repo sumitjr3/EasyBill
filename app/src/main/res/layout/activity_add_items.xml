@@ -6,16 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".AddItems"
     android:background="#ffff"
-    android:backgroundTint="#c9ffe5">
+    android:backgroundTint="#181818">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:layout_marginBottom="208dp"
+        app:cornerRadius="20dp"
         android:text="ADD"
         android:drawableLeft="@drawable/add"
-        android:backgroundTint="#00827f"
+        android:backgroundTint="#484848"
         android:textColorHint="#ffff"
         android:textColor="#ffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,6 +35,7 @@
         android:background="@drawable/shape"
         android:hint="Product name"
         android:textColorHint="#2e2c2c"
+        android:textColor="@color/myblack"
         app:layout_constraintBottom_toTopOf="@+id/price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +49,7 @@
         android:layout_marginBottom="83dp"
         android:background="@drawable/shape"
         android:hint="Price"
+        android:textColor="@color/myblack"
         android:inputType="number"
         android:textColorHint="#2e2c2c"
         app:layout_constraintBottom_toTopOf="@+id/button"

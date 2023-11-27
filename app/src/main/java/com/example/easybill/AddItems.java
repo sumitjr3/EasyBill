@@ -27,6 +27,35 @@ public class AddItems extends AppCompatActivity {
         TextInputEditText nameInput = findViewById(R.id.name);
         TextInputEditText priceInput = findViewById(R.id.price);
 
+        nameInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameInput.setHint(null);
+            }
+        });
+        nameInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && nameInput.getText().toString().trim().isEmpty()) {
+                    nameInput.setHint("Product name");
+                }
+            }
+        });
+        priceInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                priceInput.setHint(null);
+            }
+        });
+        priceInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && priceInput.getText().toString().trim().isEmpty()) {
+                    priceInput.setHint("Price");
+                }
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,20 +65,25 @@ public class AddItems extends AppCompatActivity {
 
                 ContentValues values = new ContentValues();
 
-                values.put(MyDataBaseHelper.COLUMN_NAME, name);
-                values.put(MyDataBaseHelper.COLUMN_PRICE, price);
+                if(name.isEmpty() || price.isEmpty()){
+                    Toast.makeText(AddItems.this, "Name or Price field is empty", Toast.LENGTH_LONG).show();
+                }else {
+                    values.put(MyDataBaseHelper.COLUMN_NAME, name);
+                    values.put(MyDataBaseHelper.COLUMN_PRICE, price);
 
-                long result = db.insert(MyDataBaseHelper.TABLE_NAME, null, values);
+                    long result = db.insert(MyDataBaseHelper.TABLE_NAME, null, values);
 
-                if(result==-1){
-                    Toast.makeText(AddItems.this, "error adding item", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(AddItems.this, "item added successfully", Toast.LENGTH_LONG).show();
-                    nameInput.setText("");
-                    priceInput.setText("");
+                    if(result==-1){
+                        Toast.makeText(AddItems.this, "error adding item", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(AddItems.this, "item added successfully", Toast.LENGTH_LONG).show();
+                        nameInput.setText("");
+                        priceInput.setText("");
+                    }
+                    Intent intent = new Intent(AddItems.this, TotalItems.class);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(AddItems.this, TotalItems.class);
-                startActivity(intent);
+
             }
         });
 
