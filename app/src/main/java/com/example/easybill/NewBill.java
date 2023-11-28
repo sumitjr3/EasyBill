@@ -21,7 +21,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Header;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -111,7 +116,7 @@ public class NewBill extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         }
-        String fileName = "bill_" + timeStamp + ".pdf";
+        String fileName = "EasyBill_" + timeStamp + ".pdf";
         pdfFile = new File(directory, fileName);
 
         // Get the absolute file path
@@ -121,6 +126,7 @@ public class NewBill extends AppCompatActivity {
         Document document = new Document();
         document.setMargins(20,20,50,50);
 
+        String companyName = getResources().getString(R.string.name);
 
         try {
             // Create a PdfWriter to write the document to a file
@@ -131,13 +137,14 @@ public class NewBill extends AppCompatActivity {
 
             // Open the document
             document.open();
-            document.addTitle("Bill");
-            document.addHeader(name,address);
+
 
             // Create a table for the bill items
             PdfPTable table = new PdfPTable(4); // 4 columns for item name, quantity, price, and total
             float[] columnWidths = {3f, 1f, 1f, 1f}; // Adjust the values as per your requirements
             table.setWidths(columnWidths);
+            table.normalizeHeadersFooters();
+            table.setPaddingTop(10f);
 
             // Set table headers
             table.addCell("Item");

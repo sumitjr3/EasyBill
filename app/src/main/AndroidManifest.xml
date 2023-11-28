@@ -29,15 +29,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".profileOptionsMenu"
-            android:exported="false" />
-        <activity
-            android:name=".howToOptionsMenu"
-            android:exported="false" />
-        <activity
-            android:name=".aboutOptionsMenu"
-            android:exported="false" />
-        <activity
             android:name=".PrevBill"
             android:exported="false" />
         <activity

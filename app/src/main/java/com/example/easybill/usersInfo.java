@@ -58,6 +58,13 @@ public class usersInfo extends AppCompatActivity {
                 editor.putString(getString(R.string.ownerName),oNameZ);
                 editor.putString(getString(R.string.phoneNumber),numberZ);
 
+                // Replace these lines
+                editor.putString(getString(R.string.name), nameZ);
+                editor.putString(getString(R.string.address), addressZ);
+                editor.putString(getString(R.string.ownerName), oNameZ);
+                editor.putString(getString(R.string.phoneNumber), numberZ);
+
+
 
                 editor.putBoolean("initial_setup_completed", true);
                 editor.apply();

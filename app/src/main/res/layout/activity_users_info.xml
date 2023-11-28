@@ -22,57 +22,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextText"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginBottom="50dp"
+        android:padding="20dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="  Shop Name"
+        android:hint="Shop Name"
         android:textColorHint="@color/myblack"
+        android:textColor="@color/myblack"
         android:background="@drawable/shape"
         app:layout_constraintBottom_toTopOf="@+id/editTextText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextText2"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginBottom="50dp"
+        android:padding="20dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="  Owner Name"
+        android:hint="Owner Name"
         android:textColorHint="@color/myblack"
         android:background="@drawable/shape"
+        android:textColor="@color/myblack"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextTextPostalAddress"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginBottom="50dp"
+        android:padding="20dp"
         android:ems="10"
-        android:hint="  Shop Address"
+        android:hint="Shop Address"
         android:background="@drawable/shape"
         android:textColorHint="@color/myblack"
+        android:textColor="@color/myblack"
         android:inputType="textPostalAddress"
         app:layout_constraintBottom_toTopOf="@+id/editTextPhone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextPhone"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginBottom="60dp"
+        android:padding="20dp"
         android:ems="10"
-        android:hint="  Phone Number"
+        android:hint="Phone Number"
         android:background="@drawable/shape"
         android:textColorHint="@color/myblack"
+        android:textColor="@color/myblack"
         android:inputType="phone"
         app:layout_constraintBottom_toTopOf="@+id/userInfoButton"
         app:layout_constraintEnd_toEndOf="parent"
