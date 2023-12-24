@@ -5,4 +5,5 @@
     <string name="address"></string>
     <string name="ownerName"></string>
     <string name="phoneNumber"></string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
 </resources>

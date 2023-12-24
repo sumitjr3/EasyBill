@@ -17,6 +17,17 @@
         android:theme="@style/Theme.EasyBill"
         tools:targetApi="31">
         <activity
+            android:name=".SplashScreen"
+            android:exported="true"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/Theme.EasyBill">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ActivityHow"
             android:exported="false" />
         <activity
@@ -42,7 +53,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
