@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class AddItems extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class AddItems extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         TextInputEditText nameInput = findViewById(R.id.name);
         TextInputEditText priceInput = findViewById(R.id.price);
+        MaterialToolbar toolbar = findViewById(R.id.appBarLayout);
 
         nameInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +86,14 @@ public class AddItems extends AppCompatActivity {
                     startActivity(intent);
                 }
 
+            }
+        });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backIntent = new Intent(AddItems.this,MainActivity.class);
+                startActivity(backIntent);
             }
         });
 
