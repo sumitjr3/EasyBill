@@ -12,17 +12,22 @@ import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
+
+import java.util.Arrays;
 
 public class TotalItems extends AppCompatActivity {
 
     private AlertDialog dialog;
     private ListView listView;
+    private SearchView searchView;
     private SimpleCursorAdapter adapter;
     private MyDataBaseHelper myDataBaseHelper;
 
@@ -32,7 +37,7 @@ public class TotalItems extends AppCompatActivity {
         setContentView(R.layout.activity_total_items);
 
 
-
+        searchView =  findViewById(R.id.searchBar);
         listView = findViewById(R.id.listView);
 
         myDataBaseHelper = new MyDataBaseHelper(this);
@@ -46,6 +51,32 @@ public class TotalItems extends AppCompatActivity {
 
         adapter = new SimpleCursorAdapter(this, R.layout.list_item_layout, cursor, fromColumns, toViews, 0);
         listView.setAdapter(adapter);
+
+        //search operations
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                Cursor cursor1 = myDataBaseHelper.searchItems(newText);
+                String[] columnNames = cursor1.getColumnNames();
+                Log.d("ColumnNames", Arrays.toString(columnNames));
+
+
+                if (cursor1 != null) {
+                    adapter.swapCursor(cursor1);
+                } else {
+                    // Handle the case when the search operation fails or returns null
+                    Toast.makeText(TotalItems.this, "Search failed", Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -139,9 +170,6 @@ public class TotalItems extends AppCompatActivity {
                 return true;
             }
         });
-
-
-
     }//on create
 
 

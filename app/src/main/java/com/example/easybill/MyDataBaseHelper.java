@@ -57,13 +57,14 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
 
-    public Cursor getFilteredItems(String query) {
-        SQLiteDatabase db = getReadableDatabase();
-        String[] projection = null; // null means return all columns
+    public Cursor searchItems(String query) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {"_id",COLUMN_NAME, COLUMN_PRICE};
         String selection = COLUMN_NAME + " LIKE ?";
-        String[] selectionArgs = { "%" + query + "%" }; // Search for partial matches
-        String sortOrder = null; // no specific order
-        return db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+        String[] selectionArgs = {"%" + query + "%"};
+
+        return db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
     }
+
 
 }

@@ -8,47 +8,37 @@
     android:background="#ffff"
     android:backgroundTint="#181818">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="1dp"
-            android:gravity="center"
-            android:text="    Item Name                                                  Rate  "
-            android:textColor="@color/mywhite"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <LinearLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="12dp">
 
         <SearchView
             android:id="@+id/searchBar"
+            android:background="@color/grey"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:queryHint="Search..."
-            />
+            android:iconifiedByDefault="false"
+            android:searchIcon="@drawable/search_icon"
+            android:queryHint="Search..." />
+
+    </androidx.cardview.widget.CardView>
+
+
+
 
         <ListView
             android:id="@+id/listView"
