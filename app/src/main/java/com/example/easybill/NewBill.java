@@ -138,18 +138,13 @@ public class NewBill extends AppCompatActivity {
             // Create a PdfWriter to write the document to a file
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 
-            String name = String.valueOf(R.string.name);
-            String address = String.valueOf(R.string.address);
 
             // Open the document
             document.open();
 
             //header
-            Font headerFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
             String headerName = getString(R.string.name);
-            Paragraph header = new Paragraph(headerName, headerFont);
-            header.setAlignment(Element.ALIGN_CENTER);
-            document.add(header);
+            document.add(new Paragraph(headerName, new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD)));
 
 
 
