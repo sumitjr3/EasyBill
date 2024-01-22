@@ -11,27 +11,81 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="30dp"
         android:paddingBottom="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <!--Item Name    Quantity      Rate      Total -->
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="1dp"
-            android:gravity="center"
-            android:text="    Item Name                       Quantity      Rate      Total"
+            android:text="Item Name"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/mywhite"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Quantity"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/mywhite"
+            android:layout_marginLeft="80dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Rate"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="9dp"
+            android:textColor="@color/mywhite"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Discount(%)"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/mywhite"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:outlineSpotShadowColor="@color/mywhite"
+            android:text="Total"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/mywhite"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -52,11 +106,12 @@
             android:dividerHeight="3dp"
             tools:listitem="@layout/newbill_list" />
 
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +119,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addInBillButton"
+            android:layout_margin="5dp"
             android:layout_width="180dp"
             android:layout_height="70dp"
             android:layout_marginEnd="10dp"
@@ -80,6 +136,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/generateBillButton"
+            android:layout_margin="5dp"
             android:layout_width="180dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"

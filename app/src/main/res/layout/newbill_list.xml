@@ -9,9 +9,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/list">
+
     <TextView
         android:id="@+id/itemName"
-        android:layout_width="219dp"
+        android:layout_width="145dp"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:padding="10dp"
@@ -20,7 +21,7 @@
 
     <TextView
         android:id="@+id/itemQuantity"
-        android:layout_width="53dp"
+        android:layout_width="60dp"
         android:layout_height="50dp"
         android:padding="5dp"
         android:layout_toEndOf="@+id/itemName"
@@ -29,11 +30,20 @@
 
     <TextView
         android:id="@+id/itemPrice"
-        android:layout_width="53dp"
+        android:layout_width="60dp"
         android:layout_height="50dp"
         android:padding="5dp"
         android:textColor="#2e2d2f"
         android:layout_toEndOf="@+id/itemQuantity"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/itemDiscount"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:padding="5dp"
+        android:textColor="#2e2d2f"
+        android:layout_toEndOf="@+id/itemPrice"
         android:gravity="center_vertical"/>
 
     <TextView
@@ -42,7 +52,7 @@
         android:layout_height="50dp"
         android:padding="5dp"
         android:textColor="#2e2d2f"
-        android:layout_toEndOf="@+id/itemPrice"
+        android:layout_toEndOf="@+id/itemDiscount"
         android:gravity="center_vertical"
         android:layout_marginEnd="5dp"/>
 

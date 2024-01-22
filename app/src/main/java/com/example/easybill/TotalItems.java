@@ -135,14 +135,15 @@ public class TotalItems extends AppCompatActivity {
                                     float priceNow = pp - ((d * pp) / 100);
 
                                     // just converting int values into a String value for calculation and display
-                                    String total = String.valueOf(priceNow * pq);
-                                    String price = String.valueOf(priceNow);
+                                   String total = String.valueOf(priceNow * pq);
+                                    //String price = String.valueOf(priceNow);
 
                                     // Create an intent to pass the selected item, price, and quantity back to the NewBill activity
                                     Intent intent = new Intent();
                                     intent.putExtra("selectedItem", selectedItem);
-                                    intent.putExtra("selectedPrice", price);
+                                    intent.putExtra("selectedPrice", selectedPrice);
                                     intent.putExtra("selectedQuantity", quantity);
+                                    intent.putExtra("selectedDiscount", discount);
                                     intent.putExtra("selectedTotal", total);
 
                                     setResult(RESULT_OK, intent);

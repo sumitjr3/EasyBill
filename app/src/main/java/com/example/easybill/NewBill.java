@@ -48,6 +48,7 @@ public class NewBill extends AppCompatActivity {
     private List<String> selectedItemsList;
     private List<String> selectedItemsQuantity;
     private List<String> selectedItemsPrices;
+    private List<String> selectedItemsDiscount;
     private List<String> selectedItemsTotal;
     private ArrayAdapter<String> adapter;
 
@@ -64,6 +65,7 @@ public class NewBill extends AppCompatActivity {
         selectedItemsList = new ArrayList<>();
         selectedItemsQuantity = new ArrayList<>();
         selectedItemsPrices = new ArrayList<>();
+        selectedItemsDiscount = new ArrayList<>();
         selectedItemsTotal = new ArrayList<>();
 
         adapter = new ArrayAdapter<String>(this, R.layout.newbill_list, R.id.itemName, selectedItemsList) {
@@ -74,16 +76,19 @@ public class NewBill extends AppCompatActivity {
                 TextView itemNameTextView = view.findViewById(R.id.itemName);
                 TextView itemQuantityTextView = view.findViewById(R.id.itemQuantity);
                 TextView itemPriceTextView = view.findViewById(R.id.itemPrice);
+                TextView itemDiscountTextView = view.findViewById(R.id.itemDiscount);
                 TextView itemTotalTextView = view.findViewById(R.id.itemTotal);
 
                 String itemName = selectedItemsList.get(position);
                 String itemQuantity = selectedItemsQuantity.get(position);
                 String itemPrice = selectedItemsPrices.get(position);
+                String itemDiscount = selectedItemsDiscount.get(position);
                 String itemTotal = selectedItemsTotal.get(position);
 
                 itemNameTextView.setText(itemName);
                 itemQuantityTextView.setText(itemQuantity);
                 itemPriceTextView.setText(itemPrice);
+                itemDiscountTextView.setText(itemDiscount);
                 itemTotalTextView.setText(itemTotal);
 
                 return view;
@@ -124,11 +129,12 @@ public class NewBill extends AppCompatActivity {
 
         // Initialize the PDF document
         Document document = new Document();
-        document.setMargins(20,20,50,50);
+        document.setMargins(10,10,50,40);
 
         String companyName = getResources().getString(R.string.name);
 
         try {
+
             // Create a PdfWriter to write the document to a file
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 
@@ -138,19 +144,35 @@ public class NewBill extends AppCompatActivity {
             // Open the document
             document.open();
 
+            //header
+            Font headerFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+            String headerName = getString(R.string.name);
+            Paragraph header = new Paragraph(headerName, headerFont);
+            header.setAlignment(Element.ALIGN_CENTER);
+            document.add(header);
+
+
 
             // Create a table for the bill items
-            PdfPTable table = new PdfPTable(4); // 4 columns for item name, quantity, price, and total
-            float[] columnWidths = {3f, 1f, 1f, 1f}; // Adjust the values as per your requirements
+            PdfPTable table = new PdfPTable(5); // 4 columns for item name, quantity, price, and total
+            float[] columnWidths = {3f, 1f, 1f, 1f, 1f}; // Adjust the values as per your requirements
             table.setWidths(columnWidths);
             table.normalizeHeadersFooters();
             table.setPaddingTop(10f);
 
             // Set table headers
-            table.addCell("Item");
-            table.addCell("Quantity");
-            table.addCell("Price");
-            table.addCell("Total");
+            Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+            PdfPCell itemCell = new PdfPCell(new Phrase("Item", boldFont));
+            PdfPCell quantityCell = new PdfPCell(new Phrase("Quantity", boldFont));
+            PdfPCell priceCell = new PdfPCell(new Phrase("Price", boldFont));
+            PdfPCell discountCell = new PdfPCell(new Phrase("Discount", boldFont));
+            PdfPCell totalCell = new PdfPCell(new Phrase("Total", boldFont));
+
+            table.addCell(itemCell);
+            table.addCell(quantityCell);
+            table.addCell(priceCell);
+            table.addCell(discountCell);
+            table.addCell(totalCell);
 
 
             float grandTotal = 0;
@@ -161,6 +183,7 @@ public class NewBill extends AppCompatActivity {
                 String nameItem = selectedItemsList.get(i);
                 String quantityItem = selectedItemsQuantity.get(i);
                 String priceItem = selectedItemsPrices.get(i);
+                String discountItem = selectedItemsDiscount.get(i);
                 String totalItem = selectedItemsTotal.get(i);
                 // Calculating Grand total logic
                 // Remove non-numeric characters from the totalItem string
@@ -173,18 +196,21 @@ public class NewBill extends AppCompatActivity {
                 table.addCell(nameItem);
                 table.addCell(quantityItem);
                 table.addCell(priceItem);
+                table.addCell(discountItem);
                 table.addCell(totalItem);
             }
 
             PdfPCell cell1 = new PdfPCell(new Phrase(""));
             PdfPCell cell2 = new PdfPCell(new Phrase(""));
-            PdfPCell cell3 = new PdfPCell(new Phrase("Total: "));
-            PdfPCell cell4 = new PdfPCell(new Phrase(" " + grandTotal));
+            PdfPCell cell3 = new PdfPCell(new Phrase(""));
+            PdfPCell cell4 = new PdfPCell(new Phrase("Total: "));
+            PdfPCell cell5 = new PdfPCell(new Phrase(" " + grandTotal));
 
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
             table.addCell(cell4);
+            table.addCell(cell5);
 
             document.add(table);
             // Close the document
@@ -213,12 +239,14 @@ public class NewBill extends AppCompatActivity {
             String selectedItem = data.getStringExtra("selectedItem");
             String selectedQuantity = data.getStringExtra("selectedQuantity");
             String selectedPrice = data.getStringExtra("selectedPrice");
+            String selectedDiscount = data.getStringExtra("selectedDiscount");
             String selectedTotal = data.getStringExtra("selectedTotal");
 
             // Add the selected item to the selected items list
             selectedItemsList.add(selectedItem);
             selectedItemsQuantity.add(selectedQuantity);
             selectedItemsPrices.add(selectedPrice);
+            selectedItemsDiscount.add(selectedDiscount);
             selectedItemsTotal.add(selectedTotal);
 
             adapter.notifyDataSetChanged();
