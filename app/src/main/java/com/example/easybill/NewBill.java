@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -15,6 +17,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -95,6 +98,16 @@ public class NewBill extends AppCompatActivity {
             }
         };
         NewBillList.setAdapter(adapter);
+        NewBillList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // Show a dialog or confirmation message before deleting
+
+                showDeleteConfirmationDialog(position);
+                return true;
+            }
+        });
+
 
         AddItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,11 +221,14 @@ public class NewBill extends AppCompatActivity {
             table.addCell(cell5);
 
             document.add(table);
+
+
             // Close the document
             document.close();
 
             // Notify the user that the PDF is ready for download
             Toast.makeText(this, "PDF bill created. You can download it now.", Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -254,5 +270,36 @@ public class NewBill extends AppCompatActivity {
         }
     }
 
+
+    private void showDeleteConfirmationDialog(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this item?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Delete the item and refresh the adapter
+                        deleteItem(position);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User canceled the deletion
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void deleteItem(int position) {
+        selectedItemsList.remove(position);
+        selectedItemsQuantity.remove(position);
+        selectedItemsPrices.remove(position);
+        selectedItemsDiscount.remove(position);
+        selectedItemsTotal.remove(position);
+
+        adapter.notifyDataSetChanged();
+        Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
+    }
 
 }
