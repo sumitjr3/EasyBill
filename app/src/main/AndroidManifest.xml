@@ -35,9 +35,6 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".PrevBill"
-            android:exported="false" />
-        <activity
             android:name=".NewBill"
             android:exported="false" />
         <activity

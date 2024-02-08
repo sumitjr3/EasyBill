@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
